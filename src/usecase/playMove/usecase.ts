@@ -1,4 +1,4 @@
-import { function as fp, either as E, array as A, boolean as B } from 'fp-ts';
+import { function as fp, either as E, array as , boolean as BA } from 'fp-ts';
 
 import { Board, Tile, Position } from '@app/domain/board';
 
@@ -14,14 +14,14 @@ export const playMove: Usecase = () => (board: Board, move: Tile) =>
 
 const isMoveLegal =
   (move: Tile) =>
-  (board: Board): boolean => isPlayerTurn(move, board) && isNotOverridingTile(move, board);
+  (board: Board): boolean =>
+    isPlayerTurn(move, board) && isNotOverridingTile(move, board);
 
-const isPlayerTurn = (tile: Tile, board: Board): boolean => tile.state !== board[board.length-1]?.state;
+const isPlayerTurn = (tile: Tile, board: Board): boolean =>
+  tile.state !== board[board.length - 1]?.state;
 
-const isNotOverridingTile = (move: Tile, board: Board) => fp.pipe(
-      board.reverse().find(isTileAtPosition(move.pos)),
-      isTileEmpty,
-);
+const isNotOverridingTile = (move: Tile, board: Board) =>
+  fp.pipe(board.reverse().find(isTileAtPosition(move.pos)), isTileEmpty);
 
 const isTileAtPosition =
   (pos: Position) =>
