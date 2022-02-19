@@ -2,11 +2,11 @@
   "name": "tic-tac-toe-fp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node dist/main.js"
+    "build": "rm -rf dist && tsc --build ./tsconfig.build.json",
+    "start": "node -r tsconfig-paths/register -r ts-node/register dist/main.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "fp-ts": "^2.11.8",
     "io-ts": "^2.2.16",
     "io-ts-types": "^0.5.16",
-    "ts": "^0.2.2"
+    "ts": "^0.2.2",
+    "tsconfig-paths": "^3.12.0"
   }
 }

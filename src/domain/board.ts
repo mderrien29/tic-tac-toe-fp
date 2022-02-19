@@ -1,12 +1,22 @@
 import { function as fp } from 'fp-ts';
-import { keyof, array, TypeOf, type, number, union, nullType } from 'io-ts';
+import { keyof, array, TypeOf, type, Int, union, nullType, brand, Branded } from 'io-ts';
 
 export const TileState = union([
   keyof({ X: fp.constNull(), O: fp.constNull() }),
   nullType,
 ]);
 
-export const Position = type({ x: number, y: number });
+export interface BoardCoordinateBrand {
+  readonly BoardCoordinate: unique symbol;
+}
+export const BoardCoordinate = brand(
+  Int,
+  (input): input is Branded<Int, BoardCoordinateBrand> => input >= 0 && input < 3,
+  'BoardCoordinate',
+);
+export type BoardCoordinate = TypeOf<typeof BoardCoordinate>;
+
+export const Position = type({ x: BoardCoordinate, y: BoardCoordinate });
 
 export const Tile = type({
   pos: Position,
