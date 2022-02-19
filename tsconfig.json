@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@app/domain/*": ["src/domain/*"],
+      "@app/usecase/*": ["src/usecase/*"],
+      "@app/driven/*": ["src/driven/*"],
+      "@app/driving/*": ["src/driving/*"],
+      "@app/testing/*": ["test/*"]
+    }
+  },
+  "includes": ["src/**/*.ts", "test/**/*.ts"]
+}
