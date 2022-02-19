@@ -1,4 +1,4 @@
-import { function as fp, either as E, array as A } from 'fp-ts';
+import { function as fp, either as E, array as A, boolean as B } from 'fp-ts';
 
 import { Board, Tile, Position } from '@app/domain/board';
 
@@ -8,15 +8,20 @@ import { PlayerError } from '@app/domain/error';
 export const playMove: Usecase = () => (board: Board, move: Tile) =>
   fp.pipe(
     board,
-    E.fromPredicate(isMoveIllegal(move), (_) => illegalMoveError),
-    (_) => _,
+    E.fromPredicate(isMoveLegal(move), (_) => illegalMoveError),
     E.map(A.append(move)),
   );
 
-const isMoveIllegal =
+const isMoveLegal =
   (move: Tile) =>
-  (board: Board): boolean =>
-    fp.pipe(board.reverse().find(isTileAtPosition(move.pos)), isTileEmpty);
+  (board: Board): boolean => isPlayerTurn(move, board) && isNotOverridingTile(move, board);
+
+const isPlayerTurn = (tile: Tile, board: Board): boolean => tile.state !== board[board.length-1]?.state;
+
+const isNotOverridingTile = (move: Tile, board: Board) => fp.pipe(
+      board.reverse().find(isTileAtPosition(move.pos)),
+      isTileEmpty,
+);
 
 const isTileAtPosition =
   (pos: Position) =>
