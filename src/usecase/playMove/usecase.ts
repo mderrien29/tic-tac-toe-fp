@@ -21,7 +21,10 @@ const isPlayerTurn = (tile: Tile, board: Board): boolean =>
   tile.state !== board[board.length - 1]?.state;
 
 const isNotOverridingTile = (move: Tile, board: Board) =>
-  fp.pipe(board.reverse().find(isTileAtPosition(move.pos)), isTileEmpty);
+  fp.pipe(
+    board.slice().reverse().find(isTileAtPosition(move.pos)),
+    isTileEmpty,
+  );
 
 const isTileAtPosition =
   (pos: Position) =>

@@ -7,11 +7,12 @@ import {
   brand,
   Branded,
   literal,
+  nullType,
 } from 'io-ts';
 
 export const Player = union([literal('X'), literal('O')]);
 
-export const TileState = Player;
+export const TileState = union([Player, nullType]);
 
 export interface BoardCoordinateBrand {
   readonly BoardCoordinate: unique symbol;

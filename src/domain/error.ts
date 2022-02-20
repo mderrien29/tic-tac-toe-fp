@@ -1,14 +1,16 @@
-export interface UnclassifiedError {
+export interface AnyError {
+  readonly _tag: string;
+  readonly message: string;
+}
+
+export interface UnclassifiedError extends AnyError {
   readonly _tag: 'UnclassifiedError';
-  readonly message: string;
 }
 
-export interface TechError {
+export interface TechError extends AnyError {
   readonly _tag: 'TechError';
-  readonly message: string;
 }
 
-export interface PlayerError {
+export interface PlayerError extends AnyError {
   readonly _tag: 'PlayerError';
-  readonly message: string;
 }
