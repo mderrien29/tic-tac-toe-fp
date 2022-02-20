@@ -1,18 +1,26 @@
-import { array, TypeOf, type, Int, union, nullType, brand, Branded, literal } from 'io-ts';
-
-export const Player = union([ literal('X'), literal('O') ])
-
-export const TileState = union([
-  Player,
+import {
+  array,
+  TypeOf,
+  type,
+  Int,
+  union,
   nullType,
-]);
+  brand,
+  Branded,
+  literal,
+} from 'io-ts';
+
+export const Player = union([literal('X'), literal('O')]);
+
+export const TileState = union([Player, nullType]);
 
 export interface BoardCoordinateBrand {
   readonly BoardCoordinate: unique symbol;
 }
 export const BoardCoordinate = brand(
   Int,
-  (input): input is Branded<Int, BoardCoordinateBrand> => input >= 0 && input < 3,
+  (input): input is Branded<Int, BoardCoordinateBrand> =>
+    input >= 0 && input < 3,
   'BoardCoordinate',
 );
 export type BoardCoordinate = TypeOf<typeof BoardCoordinate>;

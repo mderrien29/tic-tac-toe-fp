@@ -11,11 +11,17 @@ describe('playMove', () => {
 
     beforeEach(() => {
       board = [];
-    })
+    });
 
     it('should allow valid moves', () => {
-      const firstMove: Tile = { pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) }, state: 'X' };
-      const secondMove: Tile = { pos: { x: fp.unsafeCoerce(1), y: fp.unsafeCoerce(1) }, state: 'O' };
+      const firstMove: Tile = {
+        pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) },
+        state: 'X',
+      };
+      const secondMove: Tile = {
+        pos: { x: fp.unsafeCoerce(1), y: fp.unsafeCoerce(1) },
+        state: 'O',
+      };
       const res = playMove()(board, firstMove);
 
       expectRight(res);
@@ -27,25 +33,33 @@ describe('playMove', () => {
     });
 
     it('should not allow the same move twice', () => {
-      const firstMove: Tile = { pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) }, state: 'X' };
+      const firstMove: Tile = {
+        pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) },
+        state: 'X',
+      };
       const boardAfterMove = playMove()(board, firstMove);
       expectRight(boardAfterMove);
 
       const res = playMove()(boardAfterMove.right, firstMove);
 
-      expectLeft(res)
+      expectLeft(res);
     });
 
     it('should not allow the same player to play twice in a row', () => {
-      const firstMove: Tile = { pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) }, state: 'X' };
-      const secondMove: Tile = { pos: { x: fp.unsafeCoerce(1), y: fp.unsafeCoerce(1) }, state: 'X' };
+      const firstMove: Tile = {
+        pos: { x: fp.unsafeCoerce(0), y: fp.unsafeCoerce(0) },
+        state: 'X',
+      };
+      const secondMove: Tile = {
+        pos: { x: fp.unsafeCoerce(1), y: fp.unsafeCoerce(1) },
+        state: 'X',
+      };
       const boardAfterMove = playMove()(board, firstMove);
       expectRight(boardAfterMove);
 
       const res = playMove()(boardAfterMove.right, secondMove);
 
-      expectLeft(res)
+      expectLeft(res);
     });
-
-  })
-})
+  });
+});

@@ -18,14 +18,18 @@ const tileFromString: Decode<string, Tile> = (i: string) =>
   fp.pipe(
     i.split(' '),
     E.tryCatchK(
-      (a: string[]) => ({ pos: { x: parseInt(a[0]), y: parseInt(a[1]) }, state: a[2] }),
+      (a: string[]) => ({
+        pos: { x: parseInt(a[0]), y: parseInt(a[1]) },
+        state: a[2],
+      }),
       (_) => [getValidationError('failed to parse input', [])],
     ),
     E.chain(Tile.decode),
   );
 
 const rl = createInterface(process.stdin, process.stdout);
-const questionAsTask = (q: string) => () => new Promise(res => rl.question(q, res));
+const questionAsTask = (q: string) => () =>
+  new Promise((res) => rl.question(q, res));
 
 const getValidTileFromUser: T.Task<Tile> = fp.pipe(
   questionAsTask('next move ? '),
