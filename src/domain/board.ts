@@ -4,7 +4,6 @@ import {
   type,
   Int,
   union,
-  nullType,
   brand,
   Branded,
   literal,
@@ -12,7 +11,7 @@ import {
 
 export const Player = union([literal('X'), literal('O')]);
 
-export const TileState = union([Player, nullType]);
+export const TileState = Player;
 
 export interface BoardCoordinateBrand {
   readonly BoardCoordinate: unique symbol;
