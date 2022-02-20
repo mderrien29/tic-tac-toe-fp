@@ -1,4 +1,4 @@
-import { function as fp, either as E, array as , boolean as BA } from 'fp-ts';
+import { function as fp, either as E, array as A } from 'fp-ts';
 
 import { Board, Tile, Position } from '@app/domain/board';
 

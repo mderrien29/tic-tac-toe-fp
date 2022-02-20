@@ -1,8 +1,9 @@
-import { function as fp } from 'fp-ts';
-import { keyof, array, TypeOf, type, Int, union, nullType, brand, Branded } from 'io-ts';
+import { array, TypeOf, type, Int, union, nullType, brand, Branded, literal } from 'io-ts';
+
+export const Player = union([ literal('X'), literal('O') ])
 
 export const TileState = union([
-  keyof({ X: fp.constNull(), O: fp.constNull() }),
+  Player,
   nullType,
 ]);
 
@@ -25,6 +26,7 @@ export const Tile = type({
 
 export const Board = array(Tile);
 
+export type Player = TypeOf<typeof Player>;
 export type TileState = TypeOf<typeof TileState>;
 export type Tile = TypeOf<typeof Tile>;
 export type Position = TypeOf<typeof Position>;
